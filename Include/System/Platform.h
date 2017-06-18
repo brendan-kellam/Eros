@@ -62,4 +62,22 @@
 #endif
 
 
+// DEBUG 
+#if EROS_ASSERTIONS_ENABLED // Used to strip assertions later 
+#define EROS_TRAP(expr) \
+if (expr) { } \
+else \
+{ \
+do { \
+_CrtDbgReport( \
+_CRT_ASSERT, __FILE__, __LINE__, #expr, NULL); \
+_CrtDbgBreak(); \
+} while (1); \
+}
+#else
+#define EROS_TRAP(expr) // do nothing
+#endif
+
+
+
 #endif /* PLATFORM_H */

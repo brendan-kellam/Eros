@@ -1,14 +1,29 @@
 
-#include <Game.h>
+#include "System/Game.h"
+#include "System/MemoryManager.h"
 
-
-Game::Game()
+CGame::CGame()
 {
-
+	InitSystems();
 }
 
-Game::~Game()
-{
+CGame::~CGame()
+{ 
+	ShutdownSystems();
+}
 
+
+/* Initialization of all Engine systems */
+void CGame::InitSystems()
+{
+	CMemoryManager			::Instance().StartUp();
+	CLogManager				::Instance().StartUp();
+}
+
+
+void CGame::ShutdownSystems()
+{
+	CLogManager				::Instance().ShutDown();
+	CMemoryManager			::Instance().ShutDown();
 }
 

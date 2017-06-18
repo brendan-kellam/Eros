@@ -1,13 +1,22 @@
 #ifndef GAME_H 
 #define GAME_H
 
-#include <Platform.h>
 
-class Game
+#include "System/Platform.h"
+#include "System/LogManager.h"
+
+#include <iostream>
+
+class EROS_API CGame
 {
 public:
-	Game();
-	~Game();
+	CGame();
+	~CGame();
+
+private:
+	void InitSystems();
+	void ShutdownSystems();
+
 };
 
 
