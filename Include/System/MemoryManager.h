@@ -16,10 +16,13 @@
 // Defines the amount of memory that is allocated on initialization of the game
 #define MEMORY_ALLOCATION_SIZE_MB 1024
 #define MB_TO_B_SCALE 1000000
+#define MB_TO_GB_SCALE 0.001
+
+#define MEMORY_STACK_PARTITION 1024*4
 
 
-class EROS_API CMemoryManager
-	: public CSingleton<CMemoryManager>, public Interface::IManager
+class EROS_API CMemoryManager final
+	: public CSingleton<CMemoryManager>, public Interface::IManager 
 {
 
 public:

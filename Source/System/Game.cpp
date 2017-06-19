@@ -18,6 +18,9 @@ void CGame::InitSystems()
 {
 	CMemoryManager			::Instance().StartUp();
 	CLogManager				::Instance().StartUp();
+
+	// TEMP //
+	system("pause");
 }
 
 
