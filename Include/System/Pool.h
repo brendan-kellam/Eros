@@ -5,10 +5,12 @@
 
 #pragma once
 
+
+#include "System/Platform.h"
 #include <stdint.h>
 
 
-class CPool
+class EROS_API CPool
 {
 	typedef uint32_t		uint;
 	typedef unsigned char   uchar;
@@ -34,6 +36,11 @@ public:
 		m_next = nullptr;
 	}
 
+	~CPool()
+	{
+		DestroyPool();
+	}
+
 	void CreatePool(size_t sizeOfEachBlock, uint numOfBlocks)
 	{
 		m_numOfBlocks = numOfBlocks;
@@ -43,16 +50,64 @@ public:
 		m_numFreeBlocks = numOfBlocks;
 		m_next = m_memStart;
 	}
+
+	void DestroyPool()
+	{
+		delete[] m_memStart;
+		m_memStart = nullptr;
+	}
+
+	uchar* AddrFromIndex(uint index) const 
+	{
+		return m_memStart + (index * m_sizeOfEachBlock);
+	}
+
+	uint IndexFromAddr(const uchar* addr) const
+	{
+		return (((uint)(addr - m_memStart)) / m_sizeOfEachBlock);
+	}
 	
 	void* Allocate()
 	{
 		if (m_numInitialized < m_numOfBlocks)
 		{
-
+			uint* p = (uint*)AddrFromIndex(m_numInitialized);
+			*p = m_numInitialized + 1;
+			m_numInitialized++; 
 		}
+
+		void* ret = nullptr;
+		if (m_numFreeBlocks > 0)
+		{
+			ret = (void*)m_next;
+			--m_numFreeBlocks;
+			if (m_numFreeBlocks != 0)
+			{
+				m_next = AddrFromIndex( *( (uint*) m_next ) );
+			}
+			else
+			{
+				m_next = nullptr;
+			}
+		}
+
+		return ret;
 	}
 
-
+	void DeAllocate(void* p)
+	{
+		if (m_next != nullptr)
+		{
+			(*(uint*)p) = IndexFromAddr(m_next);
+			m_next = (uchar*)p;
+		}
+		else
+		{
+			*((uint*)p) = m_numOfBlocks;
+			m_next = (uchar*)p;
+		}
+		++m_numFreeBlocks;
+	}
 
 };
 

@@ -16,6 +16,8 @@ CGame::~CGame()
 /* Initialization of all Engine systems */
 void CGame::InitSystems()
 {
+	
+
 	CMemoryManager			::Instance().StartUp();
 	CLogManager				::Instance().StartUp();
 

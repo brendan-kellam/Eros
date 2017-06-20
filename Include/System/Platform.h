@@ -7,6 +7,7 @@
 // Define pre-processor macros for DLL export/import
 // + system macros
 //
+#include <iostream>
 
 #ifdef _WIN32
 	#define EROS_SYS_WINDOWS

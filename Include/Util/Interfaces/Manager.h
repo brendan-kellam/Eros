@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include "System/Platform.h"
+
+
 namespace Interface
 {
 	class EROS_API IManager
