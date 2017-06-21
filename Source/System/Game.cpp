@@ -25,7 +25,6 @@ void CGame::InitSystems()
 	system("pause");
 }
 
-
 void CGame::ShutdownSystems()
 {
 	CLogManager				::Instance().ShutDown();
