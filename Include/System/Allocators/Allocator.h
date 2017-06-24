@@ -6,7 +6,7 @@
 #include "System/Platform.h"
 #include "Util/Interfaces/NonCopyable.h"
 
-class EROS_API CAllocator : Interface::INonCopyable
+class EROS_API CAllocator : Interface::INonCopyable 
 {
 
 public:

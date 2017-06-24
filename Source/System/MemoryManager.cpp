@@ -40,9 +40,6 @@ void CMemoryManager::StartUp()
 void CMemoryManager::CreateAllocators()
 {
 	Pool_4Blocks_16Bytes.Create(4, 16, RequestPartition(4*16));
-	
-	//Pool32Bytes.Create(10, 32, RequestPartition(10*32))
-
 }
 
 void CMemoryManager::DestroyAllocators()

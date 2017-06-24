@@ -1,6 +1,7 @@
 
 #include "System/Game.h"
 #include "System/MemoryManager.h"
+#include "System/WindowManager.h"
 
 CGame::CGame()
 {
@@ -20,13 +21,12 @@ void CGame::InitSystems()
 
 	CMemoryManager			::Instance().StartUp();
 	CLogManager				::Instance().StartUp();
-
-	// TEMP //
-	system("pause");
+	CWindowManager			::Instance().StartUp();
 }
 
 void CGame::ShutdownSystems()
 {
+	CWindowManager			::Instance().ShutDown();
 	CLogManager				::Instance().ShutDown();
 	CMemoryManager			::Instance().ShutDown();
 }

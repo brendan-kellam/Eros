@@ -30,7 +30,7 @@ private:
 	void  DeAllocate(void* p) override;
 
 private:
-
+	    
 	uint m_numOfBlocks;
 	uint m_blockSize;
 	uint m_numFreeBlocks;
