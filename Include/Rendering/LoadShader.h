@@ -16,7 +16,7 @@
 #include "System/Platform.h"
 
 // Load shaders function
-GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path);
+GLuint LoadShaders(std::string vertex_file_path, std::string fragment_file_path);
 bool ReadFromShader(std::ifstream& stream, std::string& output);
 void CompileShader(GLuint shaderID, std::string& shaderCode);
 

@@ -1,6 +1,6 @@
 
 #include "System/WindowManager.h"
-
+#include "System/ResourceManager.h"
 
 
 /* Create window */
@@ -36,13 +36,17 @@ void CWindowManager::StartUp()
 	// Give our vertices to OpenGL
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
-	GLuint programID = LoadShaders("C:\\Users\\poptart\\Documents\\c++\\Eros\\Resources\\Shaders\\SimpleVertexShader.vertexshader", 
-		"C:\\Users\\poptart\\Documents\\c++\\Eros\\Resources\\Shaders\\SimpleFragmentShader.fragmentshader");
-	
+	/*GLuint programID = LoadShaders("C:\\Users\\brendan\\Documents\\c++\\Eros\\Resources\\Shaders\\SimpleVertexShader.vertexshader",
+		"C:\\Users\\brendan\\Documents\\c++\\Eros\\Resources\\Shaders\\SimpleFragmentShader.fragmentshader");
+	*/
+	GLuint programID = LoadShaders(CResourceManager::Instance().GetShaderPath("SimpleVertexShader.vertexshader"),
+								   CResourceManager::Instance().GetShaderPath("SimpleFragmentShader.fragmentshader")
+								  );
 
 	do {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
 		// Use our shader
 		glUseProgram(programID);

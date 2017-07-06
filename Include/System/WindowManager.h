@@ -15,7 +15,6 @@
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
 
-#include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>

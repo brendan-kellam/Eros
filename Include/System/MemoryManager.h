@@ -8,9 +8,7 @@
 #include <stdlib.h>
 #include <chrono>
 
-#include "System/Platform.h"
-#include "Util/Interfaces/Manager.h"
-#include "Util/Singleton.h"
+#include "Util/Helpers/ManagerHelper.h"
 #include "Util/BasicProfiler.h"
 
 // Allocators
@@ -27,7 +25,7 @@
 
 
 class EROS_API CMemoryManager final
-	: public CSingleton<CMemoryManager>, public Interface::IManager 
+	: NEWMANAGER(CMemoryManager)
 {
 
 public:

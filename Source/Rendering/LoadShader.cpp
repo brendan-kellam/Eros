@@ -1,8 +1,10 @@
 
 #include "Rendering/LoadShader.h"
 
-GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path)
+GLuint LoadShaders(std::string vertexFilePath, std::string fragmentFilePath)
 {
+
+
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -10,28 +12,27 @@ GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path)
 
 	// Read the Vertex Shader code from file
 	std::string VertexShaderCode;
-	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
+	std::ifstream VertexShaderStream(vertexFilePath.c_str(), std::ios::in);
 
 
 	if (!ReadFromShader(VertexShaderStream, VertexShaderCode))
 	{
-		std::cout << "ERROR: Unable to open Vertex shader. Path: " << vertex_file_path << "." << std::endl;
+		std::cout << "ERROR: Unable to open Vertex shader. Path: " << vertexFilePath << "." << std::endl;
 		return 0;
 	}
 
 	// Read Fragment shader
 	std::string FragmentShaderCode;
-	std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
+	std::ifstream FragmentShaderStream(fragmentFilePath.c_str(), std::ios::in);
 
 	if (!ReadFromShader(FragmentShaderStream, FragmentShaderCode))
 	{
-		std::cout << "ERROR: Unable to open Fragment shader. Path: " << fragment_file_path << "." << std::endl;
+		std::cout << "ERROR: Unable to open Fragment shader. Path: " << fragmentFilePath << "." << std::endl;
 		return 0;
 	}
 
 	// Compile vertex shader
 	CompileShader(VertexShaderID, VertexShaderCode);
-
 
 	// Compile fragment shader
 	CompileShader(FragmentShaderID, FragmentShaderCode);
@@ -55,7 +56,6 @@ GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path)
 		glGetProgramInfoLog(ProgramID, infoLogLength, NULL, &ProgramErrorMessage[0]);
 		std::cout << &ProgramErrorMessage[0] << std::endl;
 	}
-
 
 	glDetachShader(ProgramID, VertexShaderID);
 	glDetachShader(ProgramID, FragmentShaderID);
@@ -95,14 +95,13 @@ bool ReadFromShader(std::ifstream& stream, std::string& output)
 	{
 		return false;
 	}
-	else
-	{
-		std::string line;
-		while (getline(stream, line))
-		{
-			output += '\n' + line;
-		}
 
-		stream.close();
+	std::string line;
+	while (getline(stream, line))
+	{
+		output += '\n' + line;
 	}
+
+	stream.close();
+	return true; 
 }

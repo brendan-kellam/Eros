@@ -7,10 +7,15 @@
 // Define pre-processor macros for DLL export/import
 // + system macros
 //
+
+#include <string>
+#include <limits.h>
 #include <iostream>
 
 #ifdef _WIN32
 	#define EROS_SYS_WINDOWS
+	
+	#include <windows.h>
 
 	// Defined to disable <windows.h> from defining the min/max macros (SDL has issues with this)
 	#ifndef NOMINMAX
@@ -61,7 +66,26 @@
 #else
 	#define EROS_API EROS_API
 #endif
-
+//
+//
+//// PROJECT ROOT PATH
+//#ifdef EROS_SYS_WINDOWS
+//
+//#define EROS_ROOT \
+//	LPWSTR result; \
+//	std::string(result, GetModuleFileNameW(NULL, result, MAX_PATH)); \
+//
+//#else // Linux / osx
+//
+//// Defines miscellaneous symbolic constants and types
+//#include <unistd.h>
+//
+//#define EROS_ROOT \
+//	char result[PATH_MAX]; \
+//	ssize_t count = readlink( "/proc/self/exe", result, PATH_MAX ); \
+//	return std::string(result, (count > 0) ? count : 0); \
+//
+//#endif
 
 // DEBUG 
 #if EROS_ASSERTIONS_ENABLED // Used to strip assertions later 
@@ -78,6 +102,7 @@ _CrtDbgBreak(); \
 #else
 #define EROS_TRAP(expr) // do nothing
 #endif
+
 
 
 
