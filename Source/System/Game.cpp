@@ -4,8 +4,13 @@
 #include "System/WindowManager.h"
 #include "System/ResourceManager.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+
 CGame::CGame()
 {
+
+
 	InitSystems();
 }
 
