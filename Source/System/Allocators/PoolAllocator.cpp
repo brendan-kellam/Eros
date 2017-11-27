@@ -10,7 +10,6 @@ void CPoolAllocator::Create(uint numOfBlock, uint blockSize, uchar* memStart)
 	// Asserts
 	EROS_TRAP(m_memStart == nullptr);
 	EROS_TRAP(memStart != nullptr);
-	
 	EROS_TRAP(m_partitionSize == 0);
 	EROS_TRAP(numOfBlock >= 0);
 	EROS_TRAP(blockSize >= 0);

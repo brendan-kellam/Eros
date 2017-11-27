@@ -1,6 +1,3 @@
-#ifndef LOADSHADER_H
-#define LOADSHADER_H
-
 #pragma once
 
 #include <iostream>
@@ -19,5 +16,3 @@
 GLuint LoadShaders(std::string vertex_file_path, std::string fragment_file_path);
 bool ReadFromShader(std::ifstream& stream, std::string& output);
 void CompileShader(GLuint shaderID, std::string& shaderCode);
-
-#endif /* LOADSHADER_H */

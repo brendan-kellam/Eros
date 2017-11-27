@@ -1,6 +1,18 @@
 
+/* Includes */
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <iostream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp> 
+#include <glm/gtx/transform.hpp>
+
 #include "System/WindowManager.h"
 #include "System/ResourceManager.h"
+#include "Rendering/LoadShader.h"
+#include "Rendering/LoadTexture.h"
+
 
 
 /* Create window */
@@ -35,16 +47,44 @@ void CWindowManager::StartUp()
 
 	// Give our vertices to OpenGL
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertexBufferCube), g_vertexBufferCube, GL_STATIC_DRAW);
+	 
+	// random seed
+	srand( (unsigned int) time(NULL) );
+
+	// Random color lambda
+	auto randColor = []() { return (GLfloat) (rand() % 255); };
+
+
+
+	// Loop each vertex
+	for (int v = 0; v < 12 * 3; v++)
+	{
+		g_colorBufferCube[3 * v + 0] = 255; // R
+		g_colorBufferCube[3 * v + 1] = 0; // G
+		g_colorBufferCube[3 * v + 2] = 0; // B
+	}
+
 
 	// Add color buffer to vertexes
-	GLuint colorBuffer; 
+	/*GLuint colorBuffer; 
 	glGenBuffers(1, &colorBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_colorBufferCube), g_colorBufferCube, GL_STATIC_DRAW);
+*/
+	
+	GLuint textureBuffer;
+	glGenBuffers(1, &textureBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_uvBufferCube), g_uvBufferCube, GL_STATIC_DRAW);
 
-
+/*
 	GLuint programID = LoadShaders("C:\\Users\\brendan\\Documents\\c++\\Eros\\Resources\\Shaders\\SimpleVertexShader.vertexshader",
 		"C:\\Users\\brendan\\Documents\\c++\\Eros\\Resources\\Shaders\\SimpleFragmentShader.fragmentshader");
+*/
+
+
+	GLuint programID = LoadShaders("C:\\Users\\brendan\\Documents\\c++\\Eros\\Resources\\Shaders\\SimpleTexture.vertexshader",
+		"C:\\Users\\brendan\\Documents\\c++\\Eros\\Resources\\Shaders\\SimpleTexture.fragmentshader");
 
 
 	// Projection matrx: 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
@@ -66,7 +106,6 @@ void CWindowManager::StartUp()
 
 	
 	GLuint matrixID = glGetUniformLocation(programID, "MVP");
-
 
 	do {
 
@@ -94,16 +133,16 @@ void CWindowManager::StartUp()
 		);
 
 
-		// 2nd attribute buffer : colors
+		// 2nd attribute buffer : textures
 		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
 		glVertexAttribPointer(
-			1,
-			3,
-			GL_FLOAT,
-			GL_FALSE,
-			0,
-			(void*) nullptr
+			1,					// Attribute
+			2,					// 2
+			GL_FLOAT,			// type
+			GL_FALSE,			// normalized?
+			0,					// stride
+			(void*) nullptr		// array buffer offset
 		);
 
 

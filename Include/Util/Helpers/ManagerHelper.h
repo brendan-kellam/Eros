@@ -1,6 +1,3 @@
-#ifndef MANAGERHELPER_H
-#define MANAGERHELPER_H
-
 #pragma once
 
 /* Required includes */
@@ -10,5 +7,3 @@
 
 /* Macro for Singleton and Manager interface include */
 #define NEWMANAGER(X) public CSingleton< X >, public Interface::IManager
-
-#endif /* MANAGERHELPER_H */
